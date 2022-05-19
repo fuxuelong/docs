@@ -2,7 +2,7 @@
 home: true
 icon: home
 # title: 后端技术笔记 # 主标题
-heroImage: /logo.svg  # index页图片
+heroImage: /logo.jpg  # index页图片
 heroImageDark: /logoDark.svg
 heroText: 后端技术笔记 # 主标题
 tagline: JAVA基础|JVM|并发、算法|Leetcode|领域算法、数据库|SQL|Nosql、Web容器|ORM框架、SpringFramework|SpringBoot、消息队列|Kafka、架构|分布式|微服务、项目|案例分析|技术管理  # 副标题

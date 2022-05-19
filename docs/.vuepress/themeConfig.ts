@@ -3,13 +3,13 @@ import navbar from "./navbar";
 import sidebar from "./sidebar";
 
 export default defineThemeConfig({
-  hostname: "https://github.com/noErrorNoBug/docs/",  /** hostname */
+  hostname: "https://github.com/fuxuelong/docs/",  /** hostname */
   /** 默认作者信息 */
   author: {
-    name: "noErrorNoBug(sunqiang)",
-    url: "https://noerrornobug.github.io/docs/",
+    name: "fuxuelong(fuxuelong)",
+    url: "https://fuxuelong.github.io/docs/",
   },
-  logo: "/logo.svg",  /** logo 图标 */
+  logo: "/logo.jpg",  /** logo 图标 */
   logoDark: "/logoDark.svg",  /** 夜间模式 logo图标 */
   darkmode: "switch", /** "auto-switch": "关闭 | 自动 | 打开" 的三段式开关,"switch": "关闭 | 打开" 的切换式开关,"auto": 自动根据用户设备主题或当前时间决定是否应用深色模式,"force-dark": 强制深色模式,"disable": 禁用深色模式 */
   themeColor: false, /** 主题颜色配置，false禁用,{ blue: "#2196f3", red: "#f26d6d", green: "#3eaf7c", orange: "#fb9b5f" } */
@@ -18,8 +18,8 @@ export default defineThemeConfig({
 
   repoDisplay: true,  /** 导航栏中显示仓库链接 */
   repoLabel: "GitHub",  /** 仓库标识 */
-  repo: "https://github.com/noErrorNoBug",  /** 仓库地址 */
-  docsRepo: "https://github.com/noErrorNoBug/docs", /** 文档仓库 */
+  repo: "https://github.com/fuxuelong",  /** 仓库地址 */
+  docsRepo: "https://github.com/fuxuelong/docs", /** 文档仓库 */
   docsBranch: "master",/** 文档分支 */
   docsDir: "/docs", /** 文档项目目录 */
 
@@ -44,7 +44,7 @@ export default defineThemeConfig({
   toc: true, /** 是否在桌面模式下右侧展示标题列表 */
   home: "", /** 点击导航栏返回的主页位置 */
   displayFooter: true,  /** 是否显示默认页脚 */
-  footer: "Apache License 2.0 | Copyright © 2018-present noErrorNoBug(sunqiang)", /** 默认页脚内容 */
+  footer: "Apache License 2.0 | Copyright © 2018-present fuxuelong(sunqiang)", /** 默认页脚内容 */
 
 
   /** 加密设置，todo：为项目和个人相关的路径加密 */
@@ -66,7 +66,7 @@ export default defineThemeConfig({
     comment: {
       type: "giscus", /* 服务提供者，使用 giscus */
       comment: false, /* 是否默认启用评论 */
-      repo: "noErrorNoBug/giscus",        /* 存评论的仓库 */
+      repo: "fuxuelong/giscus",        /* 存评论的仓库 */
       repoId: "R_kgDOHErULA",                 /* 仓库 ID */
       category: "Announcements",              /* Announcements */
       categoryId: "DIC_kwDOHErULM4COSqq",         /* 讨论分类 ID */
