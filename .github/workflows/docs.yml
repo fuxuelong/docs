@@ -45,20 +45,13 @@ jobs:
       # 查看 workflow 的文档来获取更多信息
       # @see https://github.com/crazy-max/ghaction-github-pages
       - name: Deploy to GitHub Pages
-        # uses: fuxuelong/fuxuelong.github.io@v2
-        #uses: crazy-max/ghaction-github-pages@v2
-        # 环境变量
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.forever_token }}
-        # with:
-        #   # 部署到 gh-pages 分支
-        #   target_branch: main
-        #   # 部署目录为 VuePress 的默认输出目录
-        #   build_dir: ./dist
         uses: crazy-max/ghaction-github-pages@v2
-        with:
-          target_branch: gh-pages
-          build_dir: ./dist
+        # 环境变量
         env:
           GITHUB_TOKEN: ${{ secrets.DOCS_TOKEN }}
+        with:
+          # 部署到 gh-pages 分支
+          target_branch: gh-pages
+          # 部署目录为 VuePress 的默认输出目录
+          build_dir: ./dist
 
