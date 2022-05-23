@@ -32,6 +32,95 @@
 import { defineNavbarConfig } from "vuepress-theme-hope";
 
 export default defineNavbarConfig([
+
+  /**
+   * [微服务]模块 导航栏
+   */
+   {
+    text: "微服务",
+    children: [
+      /**
+       * [微服务架构理论] 导航栏
+       */
+      {
+        text: "微服务架构理论", children: [
+          { text: "微服务架构理论", link: "/microservice/theory/微服务架构理论.md" },          /** 指向微服务架构理论文章 */
+        ]
+      },
+      /**
+       * [注册中心|配置中心] 导航栏
+       */
+      {
+        text: "注册中心|配置中心", children: [
+          { text: "Nacos:服务注册与发现", link: "/guide.md" },          /** 指向服务注册与发现起始文章 */
+          { text: "Nacos:配置中心", link: "/guide.md" },          /** 指向配置中心起始文章 */
+        ]
+      },
+
+      /**
+       * [负载均衡|远程调用] 导航栏
+       */
+      {
+        text: "负载均衡|远程调用", children: [
+          { text: "LoadBalancer:负载均衡器", link: "/guide.md" },          /** 指向LoadBalancer:负载均衡器起始文章 */
+          { text: "OpenFeign:函数式调用", link: "/guide.md" },          /** 指向OpenFeign:函数式调用起始文章 */
+          { text: "Dubbo:RPC调用", link: "/guide.md" },          /** 指向Dubbo:RPC调用起始文章 */
+        ]
+      },
+
+      /**
+       * [容错限流降级] 导航栏
+       */
+      {
+        text: "容错限流降级", children: [
+          { text: "Gateway:高可用网关API", link: "/guide.md" },          /** 指向Gateway:高可用网关API起始文章 */
+          { text: "Sentinel:限流和降级", link: "/guide.md" },          /** 指向Sentinel:限流和降级起始文章 */
+          { text: "Dubbo:RPC调用", link: "/guide.md" },          /** 指向Dubbo:RPC调用起始文章 */
+        ]
+      },
+
+      /**
+       * [事务解决方案] 导航栏
+       */
+      {
+        text: "事务解决方案", children: [
+          { text: "分布式事务解决方案", link: "/guide.md" },          /** 指向分布式事务解决方案起始文章 */
+          { text: "RocketMQ:最终一致性事务解决方案", link: "/guide.md" },          /** 指向RocketMQ:RocketMQ:最终一致性事务解决方案起始文章 */
+          { text: "Seata:强一致性事务实现", link: "/guide.md" },          /** 指向Seata:强一致性事务实现起始文章 */
+        ]
+      },
+
+      /**
+       * [安全和认证] 导航栏
+       */
+      {
+        text: "安全和认证", children: [
+          { text: "Oauth2:开放授权", link: "/guide.md" },          /** 指向Oauth2:开放授权起始文章 */
+          { text: "JWT:令牌传输", link: "/guide.md" },             /** 指向JWT:令牌传输起始文章 */
+          { text: "SpringSecurity:服务安全", link: "/guide.md" },          /** 指向SpringSecurity:服务安全起始文章 */
+        ]
+      },
+
+      /**
+       * [链路追踪] 导航栏
+       */
+      {
+        text: "链路追踪", children: [
+          { text: "SkyWalking:服务调用链", link: "/guide.md" },          /** 指向SkyWalking:服务调用链起始文章 */
+        ]
+      },
+
+      /**
+       * [SpringCloud扩展点] 导航栏
+       */
+      {
+        text: "SpringCloud扩展点", children: [
+          { text: "SpringCloud扩展点", link: "/guide.md" },          /** 指向SpringCloud扩展点起始文章 */
+        ]
+      },
+    ]
+  },
+
   /**
    * [Java]模块 导航栏
    */
@@ -114,7 +203,6 @@ export default defineNavbarConfig([
       },
     ]
   },
-
 
   /**
    * [算法]模块 导航栏
@@ -460,87 +548,6 @@ export default defineNavbarConfig([
           { text: "OSS单点登录案例", link: "/guide.md" },          /** 指向OSS单点登录案例起始文章 */
           { text: "高可用网关案例", link: "/guide.md" },          /** 指向高可用网关案例起始文章 */
           { text: "认证授权服务案例", link: "/guide.md" },          /** 指向认证授权服务案例起始文章 */
-        ]
-      },
-    ]
-  },
-
-
-  /**
-   * [微服务]模块 导航栏
-   */
-  {
-    text: "微服务",
-    children: [
-      /**
-       * [注册中心|配置中心] 导航栏
-       */
-      {
-        text: "注册中心|配置中心", children: [
-          { text: "Nacos:服务注册与发现", link: "/guide.md" },          /** 指向服务注册与发现起始文章 */
-          { text: "Nacos:配置中心", link: "/guide.md" },          /** 指向配置中心起始文章 */
-        ]
-      },
-
-      /**
-       * [负载均衡|远程调用] 导航栏
-       */
-      {
-        text: "负载均衡|远程调用", children: [
-          { text: "LoadBalancer:负载均衡器", link: "/guide.md" },          /** 指向LoadBalancer:负载均衡器起始文章 */
-          { text: "OpenFeign:函数式调用", link: "/guide.md" },          /** 指向OpenFeign:函数式调用起始文章 */
-          { text: "Dubbo:RPC调用", link: "/guide.md" },          /** 指向Dubbo:RPC调用起始文章 */
-        ]
-      },
-
-      /**
-       * [容错限流降级] 导航栏
-       */
-      {
-        text: "容错限流降级", children: [
-          { text: "Gateway:高可用网关API", link: "/guide.md" },          /** 指向Gateway:高可用网关API起始文章 */
-          { text: "Sentinel:限流和降级", link: "/guide.md" },          /** 指向Sentinel:限流和降级起始文章 */
-          { text: "Dubbo:RPC调用", link: "/guide.md" },          /** 指向Dubbo:RPC调用起始文章 */
-        ]
-      },
-
-      /**
-       * [事务解决方案] 导航栏
-       */
-      {
-        text: "事务解决方案", children: [
-          { text: "分布式事务解决方案", link: "/guide.md" },          /** 指向分布式事务解决方案起始文章 */
-          { text: "RocketMQ:最终一致性事务解决方案", link: "/guide.md" },          /** 指向RocketMQ:RocketMQ:最终一致性事务解决方案起始文章 */
-          { text: "Seata:强一致性事务实现", link: "/guide.md" },          /** 指向Seata:强一致性事务实现起始文章 */
-        ]
-      },
-
-      /**
-       * [安全和认证] 导航栏
-       */
-      {
-        text: "安全和认证", children: [
-          { text: "Oauth2:开放授权", link: "/guide.md" },          /** 指向Oauth2:开放授权起始文章 */
-          { text: "JWT:令牌传输", link: "/guide.md" },             /** 指向JWT:令牌传输起始文章 */
-          { text: "SpringSecurity:服务安全", link: "/guide.md" },          /** 指向SpringSecurity:服务安全起始文章 */
-        ]
-      },
-
-      /**
-       * [链路追踪] 导航栏
-       */
-      {
-        text: "链路追踪", children: [
-          { text: "SkyWalking:服务调用链", link: "/guide.md" },          /** 指向SkyWalking:服务调用链起始文章 */
-        ]
-      },
-
-      /**
-       * [SpringCloud扩展点] 导航栏
-       */
-      {
-        text: "SpringCloud扩展点", children: [
-          { text: "SpringCloud扩展点", link: "/guide.md" },          /** 指向SpringCloud扩展点起始文章 */
         ]
       },
     ]

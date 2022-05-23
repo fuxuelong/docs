@@ -21,7 +21,7 @@ export default defineHopeConfig({
     "/": {
       lang: "zh-CN",
       title: "后端技术笔记",
-      description: "noErrorNoBug(sunqiang)的后端技术笔记",
+      description: "fuxuelong的后端技术笔记",
     },
   },
 

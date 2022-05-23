@@ -44,7 +44,7 @@ export default defineThemeConfig({
   toc: true, /** 是否在桌面模式下右侧展示标题列表 */
   home: "", /** 点击导航栏返回的主页位置 */
   displayFooter: true,  /** 是否显示默认页脚 */
-  footer: "Apache License 2.0 | Copyright © 2018-present fuxuelong(sunqiang)", /** 默认页脚内容 */
+  footer: "Apache License 2.0 | Copyright © 2018-present fuxuelong", /** 默认页脚内容 */
 
 
   /** 加密设置，todo：为项目和个人相关的路径加密 */
