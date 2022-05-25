@@ -1,6 +1,37 @@
 import { defineSidebarConfig } from "vuepress-theme-hope";
 
 export default defineSidebarConfig({
+
+
+  /*
+   * [微服务]模块 侧边栏
+   */
+  "/microservice/": [
+    /**
+     * [注册中心|配置中心]模块 侧边栏
+     */
+    {
+      text: "微服务架构理论",
+      collapsable: false,
+      prefix: "theory/",
+      children: [
+        "微服务架构理论.md", 
+      ],
+    },
+
+    /**
+     * [负载均衡|RPC调用]模块 侧边栏
+     */
+    {
+      text: "负载均衡|RPC调用",
+      collapsable: false,
+      prefix: "loadbalance/",
+      children: [
+        "标题占位.md", 
+      ],
+    },
+  ],
+
   /**
    * [Java]模块 侧边栏
    */
@@ -265,36 +296,6 @@ export default defineSidebarConfig({
       text: "分布式理论",
       collapsable: false,
       prefix: "distribution/",
-      children: [
-        "标题占位.md", 
-      ],
-    },
-  ],
-
-
-  /*
-   * [微服务]模块 侧边栏
-   */
-  "/microservice/": [
-    /**
-     * [注册中心|配置中心]模块 侧边栏
-     */
-    {
-      text: "注册中心|配置中心",
-      collapsable: false,
-      prefix: "register/",
-      children: [
-        "标题占位.md", 
-      ],
-    },
-
-    /**
-     * [负载均衡|RPC调用]模块 侧边栏
-     */
-    {
-      text: "负载均衡|RPC调用",
-      collapsable: false,
-      prefix: "loadbalance/",
       children: [
         "标题占位.md", 
       ],

@@ -48,6 +48,14 @@ export default defineNavbarConfig([
         ]
       },
       /**
+       * [微服务构建] 导航栏
+       */
+      {
+        text: "微服务构建", children: [
+          { text: "pom文件", link: "/microservice/build/POM文件.md" },          /** 指向微服务架构理论文章 */
+        ]
+      },
+      /**
        * [注册中心|配置中心] 导航栏
        */
       {
