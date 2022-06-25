@@ -77,6 +77,10 @@ eureka:
 
 ## 三、集群Eureka构建
 
+### 原理
+
+![理论图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/eureka服务集群原理图.jpg)
+
 
 
 ### 
