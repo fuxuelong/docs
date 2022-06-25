@@ -4,8 +4,8 @@ prev:
   text: 微服务架构理论
   link: /microservice/theory/微服务架构理论.md
 next:
-  text: 回到首页
-  link: /README.md
+  text: Rest微服务工程构建
+  link: /microservice/build/Rest微服务工程构建.md
 ---
 ::: info
 文章介绍:本章主要介绍Maven项目中的pom文件的相关知识
@@ -69,3 +69,6 @@ Maven 会沿着父子层次向上走，直到找到一个拥有dependencyManagem
 3. test仅参与测试时候的编译、运行，不会打包进去项目中 例如：junit；
 4. runtime参与项目的运行阶段，不会参与编译；
 5. provider参与编译、运行、不会打包到项目中，其他设施会提供；
+
+## \<optional/>标签
+

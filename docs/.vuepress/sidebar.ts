@@ -8,7 +8,7 @@ export default defineSidebarConfig({
    */
   "/microservice/": [
     /**
-     * [注册中心|配置中心]模块 侧边栏
+     * [微服务架构理论]模块 侧边栏Rest微服务工程构建
      */
     {
       text: "微服务架构理论",
@@ -16,6 +16,19 @@ export default defineSidebarConfig({
       prefix: "theory/",
       children: [
         "微服务架构理论.md", 
+      ],
+    },
+    /**
+     * [微服务构建]模块 侧边栏
+     */
+    {
+      text: "微服务构建",
+      collapsable: false,
+      prefix: "build/",
+      children: [
+        "POM文件.md", 
+        "Rest微服务工程构建.md", 
+        "Eureka基础知识.md"
       ],
     },
 

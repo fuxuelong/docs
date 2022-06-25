@@ -52,7 +52,9 @@ export default defineNavbarConfig([
        */
       {
         text: "微服务构建", children: [
-          { text: "pom文件", link: "/microservice/build/POM文件.md" },          /** 指向微服务架构理论文章 */
+          { text: "pom文件", link: "/microservice/build/POM文件.md" },    
+          { text: "Rest微服务工程构建", link: "/microservice/build/Rest微服务工程构建.md" },        /** 指向微服务架构理论文章 */
+          { text: "Eureka基础知识", link: "/microservice/build/Eureka基础知识.md" },        /** 指向微服务架构理论文章 */
         ]
       },
       /**
