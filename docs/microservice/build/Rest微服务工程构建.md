@@ -26,6 +26,8 @@ next:
 
 |——cloud-provider-payment8001
 
+|——cloud-provider-payment8002
+
 ## 二、创建子级module **cloud-provider-payment8001**
 
 ### 创建module

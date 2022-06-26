@@ -50,7 +50,7 @@ public class EurekaMain7001 {
 
 ## 三、注册进注册中心
 
-### POM修改
+### 1、POM修改
 
 引入依赖
 
@@ -62,7 +62,7 @@ public class EurekaMain7001 {
         </dependency>
 ```
 
-### 修改yml文件，添加如下内容
+### 2、修改yml文件，添加如下内容
 
 ```yaml
 eureka:
@@ -73,14 +73,98 @@ eureka:
       defaultZone: http://localhost:7001/eureka
 ```
 
-### 启动类中添加@@EnableEurekaClient注解
+### 3、启动类中添加@@EnableEurekaClient注解
 
-## 三、集群Eureka构建
+## 三、Eureka注册中心集群构建
 
-### 原理
+### 1、原理
 
-![理论图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/eureka服务集群原理图.jpg)
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/eureka服务集群原理图.jpg)
 
+### 2、Eureka之间的相互注册
 
+**修改映射配置添加进hosts文件** 
 
-### 
+```
+127.0.0.1  eureka7001.com 
+127.0.0.1  eureka7002.com
+```
+
+**修改yaml文件**
+
+```yaml
+eureka:
+  instance:
+    hostname: eureka7002.com #eureka服务端实例名称
+  client:
+    register-with-eureka: false #false表示不向注册中心注册自己
+    fetch-registry: false #false表示我自己就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+    service-url:
+      #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
+      defaultzone: http:eureka7001.com:7001/eureka/
+```
+
+::: danger
+
+配置Eureka集群互相注册时，出现无法互相注册的情况，解决了很久，犯了两个非常愚蠢的错误，一是将defaultZone的Z写成了小写，二是写注册地址是http://eureka7002.com:7002/eureka/写成了http:eureka7002.com:7002/eureka/
+
+:::
+
+###  3、Eureka客户端注册进服务中心
+
+修改yml文件
+
+```
+defaultZone配置改为
+defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+```
+
+::: tip
+
+思考:如果要配置三个配置集群的eureka注册中心，改怎么配置？
+
+只需要修改yml文件，将新增加的注册中心配置到defaultZone中即可，比如：
+
+defualtZone: http:eureka7002.com:7002/eureka/,http:eureka7003.com:7003/eureka/
+
+:::
+
+## 三、Eureka客户端集群构建
+
+以cloud-provider-payment8001支付中心为例，建立cloud-provider-payment8002
+
+application name相同，端口不同
+
+### 1、负载均衡调用
+
+使用微服务名调用
+
+cloud-consumer-order80调用cloud-provider-payment项目时，将写死的地址改为http://CLOUD-PROVIDER-PAYMENT
+
+在RestTemplate上面加上@LoadBalanced注解，打开restTemplate的负载均衡功能
+
+```java
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+```
+
+## 四、actuator微服务信息完善
+
+在eureka配置下面加
+
+```
+  instance:
+    instance-id: payment8002 #修改注册中心中显示的实例名称
+    prefer-ip-address: true #访问路径可以显示 IP 地址
+```
+
+修改前
+
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/actuator信息修改之前.jpg)
+
+修改后
+
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/actuator信息修改之后.jpg)
