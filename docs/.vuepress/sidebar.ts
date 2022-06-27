@@ -28,7 +28,10 @@ export default defineSidebarConfig({
       children: [
         "POM文件.md", 
         "Rest微服务工程构建.md", 
-        "Eureka基础知识.md"
+        "Eureka基础知识.md", 
+        "Zookeeper基础知识.md", 
+        "Consul基础知识.md", 
+        "Ribbon负载均衡.md"
       ],
     },
 
