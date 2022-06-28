@@ -112,7 +112,7 @@ public class MySelfRule {
 **启动类上添加@RibbonClient 注解**
 
 ```java
-@RibbonClient(name = "CLOUD-PAYMENT-SERVICE", configuration = MySelfRule.class)
+@RibbonClient(name = "CLOUD-PROVIDER-PAYMENT", configuration = MySelfRule.class)
 ```
 
 **测试**
@@ -121,5 +121,144 @@ public class MySelfRule {
 
 ## 四、默认负载均衡规则原理
 
+### 1、轮询规则算法
 
+负载均衡算法：rest接口第几次请求数 % 服务器集群总数量 = 实际调用服务器位置下标  ，每次服务重启动后rest接口计数从1开始。  
+
+```java
+List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PROVIDER-PAYMENT"); #获取所有实例
+```
+
+ 如：   List [0]  instances  = 127.0.0.1:8002 
+
+　　　List [1]  instances  = 127.0.0.1:8001 
+
+8001+ 8002 组合成为集群，它们共计2台机器，集群总数为2， 按照轮询算法原理： 
+
+ 当总请求数为1时： 1 % 2 =1 对应下标位置为1 ，则获得服务地址为127.0.0.1:8001 
+
+当总请求数位2时： 2 % 2 =0 对应下标位置为0 ，则获得服务地址为127.0.0.1:8002 
+
+当总请求数位3时： 3 % 2 =1 对应下标位置为1 ，则获得服务地址为127.0.0.1:8001 
+
+当总请求数位4时： 4 % 2 =0 对应下标位置为0 ，则获得服务地址为127.0.0.1:8002 
+
+如此类推...... 
+
+## 五、RoundRibbonRule规则源码分析
+
+参考三.1中的架构图分析源码
+
+**IRule接口**
+
+```java
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
+package com.netflix.loadbalancer;
+
+public interface IRule {
+    Server choose(Object var1);
+
+    void setLoadBalancer(ILoadBalancer var1);
+
+    ILoadBalancer getLoadBalancer();
+}
+```
+
+**RoundRobinRule类**
+
+```java
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
+package com.netflix.loadbalancer;
+
+import com.netflix.client.config.IClientConfig;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class RoundRobinRule extends AbstractLoadBalancerRule {
+    private AtomicInteger nextServerCyclicCounter;
+    private static final boolean AVAILABLE_ONLY_SERVERS = true;
+    private static final boolean ALL_SERVERS = false;
+    private static Logger log = LoggerFactory.getLogger(RoundRobinRule.class);
+
+    public RoundRobinRule() {//不指定负载均衡算法
+        this.nextServerCyclicCounter = new AtomicInteger(0);
+    }
+
+    public RoundRobinRule(ILoadBalancer lb) {//指定负载均衡算法
+        this();
+        this.setLoadBalancer(lb);
+    }
+
+    public Server choose(ILoadBalancer lb, Object key) {
+        if (lb == null) {
+            log.warn("no load balancer");
+            return null;
+        } else {
+            Server server = null;
+            int count = 0;
+
+            while(true) {
+                if (server == null && count++ < 10) {
+                    List<Server> reachableServers = lb.getReachableServers();//获取活着的服务
+                    List<Server> allServers = lb.getAllServers();//获取所有服务
+                    int upCount = reachableServers.size();
+                    int serverCount = allServers.size();
+                    if (upCount != 0 && serverCount != 0) {
+                        int nextServerIndex = this.incrementAndGetModulo(serverCount);//
+                        server = (Server)allServers.get(nextServerIndex);
+                        if (server == null) {
+                            Thread.yield();
+                        } else {
+                            if (server.isAlive() && server.isReadyToServe()) {
+                                return server;
+                            }
+
+                            server = null;
+                        }
+                        continue;
+                    }
+
+                    log.warn("No up servers available from load balancer: " + lb);
+                    return null;
+                }
+
+                if (count >= 10) {
+                    log.warn("No available alive servers after 10 tries from load balancer: " + lb);
+                }
+
+                return server;
+            }
+        }
+    }
+
+    private int incrementAndGetModulo(int modulo) {
+        int current;
+        int next;
+        do {
+            current = this.nextServerCyclicCounter.get();
+            next = (current + 1) % modulo;
+        } while(!this.nextServerCyclicCounter.compareAndSet(current, next));
+
+        return next;
+    }
+
+    public Server choose(Object key) {
+        return this.choose(this.getLoadBalancer(), key);
+    }
+
+    public void initWithNiwsConfig(IClientConfig clientConfig) {
+    }
+}
+
+```
 
