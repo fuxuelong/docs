@@ -38,7 +38,7 @@ next:
 
 ### 创建主启动类
 
-主类中要添加<font color=#FF0000>  **@SpringBootApplication** </font>注解
+主类中要添加  **@SpringBootApplication** 注解
 
 ### 业务代码
 
