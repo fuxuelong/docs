@@ -31,7 +31,8 @@ export default defineSidebarConfig({
         "Eureka基础知识.md", 
         "Zookeeper基础知识.md", 
         "Consul基础知识.md", 
-        "Ribbon负载均衡.md"
+        "Ribbon负载均衡.md", 
+        "服务调用OpenFeign.md"
       ],
     },
 

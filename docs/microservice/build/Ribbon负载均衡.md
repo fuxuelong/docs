@@ -4,8 +4,8 @@ prev:
   text: Consul基础知识
   link: /microservice/build/Consul基础知识.md
 next:
-  text: 回到首页
-  link: /README.md
+  text: 服务调用OpenFeign
+  link: /microservice/build/服务调用OpenFeign.md
 ---
 ::: info
 文章介绍:
@@ -261,4 +261,118 @@ public class RoundRobinRule extends AbstractLoadBalancerRule {
 }
 
 ```
+
+## 五、手写一个负载均衡算法
+
+###  1、修改8001/8002项目，添加payment/lb接口
+
+```java
+@GetMapping("/payment/lb")
+    public String lb() {
+        return serverport;
+    }
+```
+
+### 2、LoadBalancer接口
+
+将RestTemplate上的@LoadBalanced注解去掉
+
+```javva
+@Configuration
+public class ApplicationContextConfig {
+    @Bean
+//    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+```
+
+
+
+在服务调用方添加LoadBalancer接口
+
+```java
+/**
+ * @author fxl
+ * @date 2022/6/28
+ */
+public interface LoadBalancer {
+    ServiceInstance instances(List<ServiceInstance> serviceInstances);
+}
+```
+
+添加MyLb类实现LoadBalancer接口
+
+```java
+
+/**
+ * @author fxl
+ * @date 2022/6/28
+ */
+@Component
+public class MyLb implements LoadBalancer {
+    //原子操作类，多线程情况下使用
+    AtomicInteger atomicInteger = new AtomicInteger(0);
+
+    public int getAndIncrement() {
+        int current;
+        int next;
+        //自选锁，获取当前应该调用的服务的角标
+        do {
+            current = atomicInteger.get();
+            next = current > 2147483647 ? 0 : current + 1;//2147483647为最大整形值
+        } while (!this.atomicInteger.compareAndSet(current, next));//比较并交换
+        System.out.println("********next" + next);
+        return next;
+    }
+
+    @Override
+    public ServiceInstance instances(List<ServiceInstance> serviceInstances) {
+        int index = getAndIncrement() % serviceInstances.size();
+        return serviceInstances.get(index);
+    }
+}
+```
+
+调用服务接口时
+
+```java
+@GetMapping("/consumer/payment/lb")
+public String lb() {
+    List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PROVIDER-PAYMENT");
+    if (instances == null || instances.size() <= 0) {
+        return null;
+    }
+    ServiceInstance serviceInstance = loadBalancer.instances(instances);
+    URI uri = serviceInstance.getUri();
+    return restTemplate.getForObject(uri + "/payment/lb", String.class);
+}
+```
+
+## 六、思考：Ribbon是如何将微服务名转换为IP：Port进行调用的
+
+源码分析：
+
+通过断点可以看到restTemplate中有一个拦截器LoadBalancerInterceptor，
+
+### ![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/LoadBalancerInterceptor.jpg)
+
+进入该拦截器，查看intercept方法，进入loadBalancer.execute方法
+
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/intercept.jpg)
+
+通过LoadBalancerClient接口找到实现类RibbonLoadBalancerClient中的execute方法
+
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/execute.jpg)
+
+然后进入getLoadBalancer方法
+
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/getLoadBalancer.jpg)
+
+然后一路追溯，getLoadBalancer -->.....-->getInstance,在getInstance方法中可以看见查询出了所有有效的微服务
+
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/getInstance.jpg)
+
+
 
