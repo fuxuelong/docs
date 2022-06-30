@@ -262,7 +262,7 @@ public class RoundRobinRule extends AbstractLoadBalancerRule {
 
 ```
 
-## 五、手写一个负载均衡算法
+## 六、手写一个负载均衡算法
 
 ###  1、修改8001/8002项目，添加payment/lb接口
 
@@ -350,13 +350,13 @@ public String lb() {
 }
 ```
 
-## 六、思考：Ribbon是如何将微服务名转换为IP：Port进行调用的
+## 七、思考：Ribbon是如何将微服务名转换为IP：Port进行调用的
 
 源码分析：
 
 通过断点可以看到restTemplate中有一个拦截器LoadBalancerInterceptor，
 
-### ![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/LoadBalancerInterceptor.jpg)
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/LoadBalancerInterceptor.jpg)
 
 进入该拦截器，查看intercept方法，进入loadBalancer.execute方法
 

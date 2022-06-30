@@ -4,8 +4,8 @@ prev:
   text: Ribbon负载均衡
   link: /microservice/build/Ribbon负载均衡.md
 next:
-  text: 回到首页
-  link: /README.md
+  text: Hystrix熔断器
+  link: /microservice/build/Hystrix熔断器.md
 ---
 ::: info
 文章介绍:
@@ -35,7 +35,7 @@ Feign旨在使编写Java Http客户端变得更容易。
 | Feign是Spring Cloud组件中的一个轻量级RESTful的HTTP服务客户端，Feign内置了Ribbon，用来做客户端负载均衡，去调用服务注册中心的服务。Feign的使用方式是：使用Feign的注解定义接口，调用这个接口，就可以调用服务注册中心的服务 | OpenFeign是Spring Cloud 在Feign的基础上支持了SpringMVC的注解，如@RequesMapping等等。OpenFeign的@FeignClient可以解析SpringMVC的@RequestMapping注解下的接口，并通过动态代理的方式产生实现类，实现类中做负载均衡并调用其他服务。 |
 | spring-cloud-starter- feign                                  | spring-cloud-starter- openfeign                              |
 
-## 一、OpenFeign使用
+## 二、OpenFeign使用
 
 ### 1、主启动类中添加@EnableFeignClients注解
 
@@ -73,5 +73,72 @@ public class OrderController {
 }
 ```
 
+## 三、OpenFeign超时控制
 
+### 1、超时演示
+
+超时错误
+
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/feign超时报错.jpg)
+
+### 2、配置feign客户端超时时间
+
+openFeign默认等待一秒钟
+
+```yaml
+# 设置 feign 客户端超时时间(OpenFeign默认支持 ribbon )
+ribbon:
+  # 指的是建立连接后从服务器读取到可用资源所用的时间
+  ReadTimeout: 5000
+  # 指的是建立连接所用的时间，适用于网络状况正常的情况下 , 两端连接所用的时间
+  ConnectTimeout: 5000
+```
+
+### ## 四、OpenFeign日志打印
+
+Feign 提供了日志打印功能，我们可以通过配置来调整日志级别，从而了解 Feign 中 Http 请求的细节。 
+
+说白了就是 对Feign接口的调用情况进行监控和输出 
+
+### 1、日志级别 
+
+NONE：默认的，不显示任何日志； 
+
+BASIC：仅记录请求方法、URL、响应状态码及执行时间； 
+
+HEADERS：除了 BASIC 中定义的信息之外，还有请求和响应的头信息； 
+
+FULL：除了 HEADERS 中定义的信息之外，还有请求和响应的正文及元数据。 
+
+### 2、配置日志Bean
+
+```java
+package com.atguigu.springcloud.config;
+
+import feign.Logger;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+
+/**
+ * @author fxl
+ * @date 2022/6/29
+ */
+@Configuration
+public class FeignConfig {
+    @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
+}
+```
+
+### 3.yml配置
+
+```yaml
+logging:
+  level:
+       # feign 日志以什么级别监控哪个接口
+    com.atguigu.springcloud.service.PaymentFeignService: debug
+```
 
