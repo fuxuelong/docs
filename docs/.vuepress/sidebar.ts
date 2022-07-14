@@ -32,7 +32,8 @@ export default defineSidebarConfig({
         "Zookeeper基础知识.md", 
         "Consul基础知识.md", 
         "Ribbon负载均衡.md", 
-        "服务调用OpenFeign.md"
+        "服务调用OpenFeign.md", 
+        "Hystrix熔断器.md"
       ],
     },
 

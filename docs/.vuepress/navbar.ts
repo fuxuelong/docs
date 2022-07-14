@@ -58,7 +58,8 @@ export default defineNavbarConfig([
           { text: "Zookeeper基础知识", link: "/microservice/build/Zookeeper基础知识.md" },           
           { text: "Consul基础知识", link: "/microservice/build/Consul基础知识.md" },              
           { text: "Ribbon负载均衡", link: "/microservice/build/Ribbon负载均衡.md" },              
-          { text: "服务调用OpenFeign", link: "/microservice/build/服务调用OpenFeign.md" },    
+          { text: "服务调用OpenFeign", link: "/microservice/build/服务调用OpenFeign.md" },         
+          { text: "Hystrix熔断器", link: "/microservice/build/Hystrix熔断器.md" },   
         ]
       },
       /**
