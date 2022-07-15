@@ -4,8 +4,8 @@ prev:
   text: 服务调用OpenFeign
   link: /microservice/build/服务调用OpenFeign.md
 next:
-  text: 回到首页
-  link: /README.md
+  text: GateWay网关
+  link: /microservice/build/GateWay网关.md
 ---
 ::: info
 文章介绍:
@@ -468,3 +468,14 @@ public class PaymentHystrixMain8001 {
 }
 ```
 
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/HystrixDashboard.jpg)
+
+实心圆：共有两种含义。它通过颜色的变化代表了实例的健康程度，它的健康度从绿色<黄色<橙色<红色递减。 
+
+该实心圆除了颜色的变化之外，它的大小也会根据实例的请求流量发生变化，流量越大该实心圆就越大。所以通过该实心圆的展示，就可以在大量的实例中快速的发现 故障实例和高压力实例。 
+
+ 曲线：用来记录2分钟内流量的相对变化，可以通过它来观察到流量的上升和下降趋势。  
+
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/HystrixDashboard说明0.jpg)
+
+![图](https://raw.githubusercontent.com/fuxuelong/docs/master/docs/microservice/build/pic/HystrixDashboard说明.jpg)

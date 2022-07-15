@@ -33,7 +33,8 @@ export default defineSidebarConfig({
         "Consul基础知识.md", 
         "Ribbon负载均衡.md", 
         "服务调用OpenFeign.md", 
-        "Hystrix熔断器.md"
+        "Hystrix熔断器.md", 
+        "GateWay网关.md"
       ],
     },
 
